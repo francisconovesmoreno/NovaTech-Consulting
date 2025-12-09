@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NovaTech | Consultoría Tecnológica</title>
+    <meta name="description" content="Servicios de consultoría tecnológica y transformación digital.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#2563eb', // Azul corporativo
+              secondary: '#1e40af',
+              light: '#f3f4f6',
+              dark: '#111827',
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+            animation: {
+              'fade-in': 'fadeIn 0.5s ease-out',
+              'bounce-slow': 'bounce 3s infinite',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0', transform: 'translateY(10px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+
+    <style>
+      /* Estilos Críticos y Animaciones Personalizadas */
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      
+      /* Scroll Margin para el header fijo */
+      section {
+        scroll-margin-top: 80px;
+      }
+
+      /* Animación de aparición (Scroll Reveal) */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        will-change: opacity, transform;
+      }
+
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Delays escalonados para grids */
+      .delay-100 { transition-delay: 100ms; }
+      .delay-200 { transition-delay: 200ms; }
+      .delay-300 { transition-delay: 300ms; }
+      .delay-400 { transition-delay: 400ms; }
+
+      /* Fondo abstracto animado */
+      .blob {
+        position: absolute;
+        filter: blur(80px);
+        z-index: 0;
+        animation: float 10s infinite ease-in-out;
+      }
+      @keyframes float {
+        0%, 100% { transform: translate(0, 0); }
+        50% { transform: translate(20px, -20px); }
+      }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
+    "react/": "https://aistudiocdn.com/react@^19.2.1/",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.556.0"
+  }
+}
+</script>
+</head>
+<body class="font-sans antialiased text-gray-800 bg-white overflow-x-hidden">
+
+    <!-- HEADER -->
+    <header id="main-header" class="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 group">
+                    <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white shadow-lg group-hover:scale-105 transition-transform">
+                        <!-- Terminal Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+                    </div>
+                    <span class="font-bold text-2xl tracking-tight text-gray-900">
+                        Nova<span class="text-primary">Tech</span>
+                    </span>
+                </a>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex space-x-8 items-center">
+                    <a href="#hero" class="text-gray-600 hover:text-primary font-medium transition-colors">Inicio</a>
+                    <a href="#services" class="text-gray-600 hover:text-primary font-medium transition-colors">Servicios</a>
+                    <a href="#features" class="text-gray-600 hover:text-primary font-medium transition-colors">Características</a>
+                    <a href="#contact" class="bg-primary hover:bg-secondary text-white px-6 py-2.5 rounded-full font-medium transition-all shadow-lg shadow-blue-500/30 hover:-translate-y-0.5">Contacto</a>
+                </nav>
+
+                <!-- Mobile Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-gray-600 hover:text-primary focus:outline-none p-2" aria-label="Menú">
+                    <svg id="icon-menu" class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                    <svg id="icon-close" class="w-7 h-7 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="md:hidden absolute w-full bg-white border-b border-gray-100 shadow-xl transition-all duration-300 origin-top transform scale-y-0 opacity-0 max-h-0 overflow-hidden">
+            <div class="px-4 py-6 space-y-3">
+                <a href="#hero" class="mobile-link block px-4 py-3 rounded-lg text-lg font-medium text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors">Inicio</a>
+                <a href="#services" class="mobile-link block px-4 py-3 rounded-lg text-lg font-medium text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors">Servicios</a>
+                <a href="#features" class="mobile-link block px-4 py-3 rounded-lg text-lg font-medium text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors">Características</a>
+                <a href="#contact" class="mobile-link block w-full text-center bg-primary text-white px-4 py-3 rounded-lg font-bold shadow-md active:scale-95 transition-transform mt-4">Solicitar Presupuesto</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <!-- HERO SECTION -->
+        <section id="hero" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-900 min-h-[80vh] flex items-center">
+            <!-- Background Decorations -->
+            <div class="blob bg-white opacity-10 w-96 h-96 rounded-full -top-20 -right-20 mix-blend-overlay"></div>
+            <div class="blob bg-purple-500 opacity-20 w-72 h-72 rounded-full top-1/2 -left-10 mix-blend-overlay" style="animation-delay: 2s;"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                <h1 class="reveal text-4xl md:text-5xl lg:text-7xl font-extrabold text-white tracking-tight mb-6 leading-tight">
+                    Impulsamos tu <br/>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-cyan-300">Transformación Digital</span>
+                </h1>
+                
+                <p class="reveal delay-100 mt-6 max-w-2xl mx-auto text-xl text-blue-100 mb-10 leading-relaxed">
+                    Ayudamos a empresas líderes a escalar sus operaciones con soluciones tecnológicas de vanguardia, diseño estratégico y desarrollo SaaS a medida.
+                </p>
+
+                <div class="reveal delay-200 flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="#contact" class="group bg-white text-primary px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl hover:bg-gray-50 transition-all duration-300 transform hover:-translate-y-1 flex items-center gap-2">
+                        Comienza tu proyecto
+                        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </a>
+                    <a href="#services" class="text-white border-2 border-white/30 px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/10 transition-colors backdrop-blur-sm">
+                        Explorar servicios
+                    </a>
+                </div>
+
+                <!-- Stats -->
+                <div class="reveal delay-300 mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-white/20 pt-8 max-w-4xl mx-auto">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-white mb-1 counter" data-target="500">500+</div>
+                        <div class="text-xs text-blue-200 uppercase tracking-widest font-semibold">Clientes</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-white mb-1">98%</div>
+                        <div class="text-xs text-blue-200 uppercase tracking-widest font-semibold">Retención</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-white mb-1">24/7</div>
+                        <div class="text-xs text-blue-200 uppercase tracking-widest font-semibold">Soporte</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-white mb-1">10+</div>
+                        <div class="text-xs text-blue-200 uppercase tracking-widest font-semibold">Años Exp.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES SECTION -->
+        <section id="services" class="py-24 bg-light">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-primary font-bold tracking-wide uppercase text-sm mb-2">Nuestros Servicios</h2>
+                    <h3 class="text-3xl md:text-4xl font-bold text-gray-900">Soluciones para la Era Digital</h3>
+                    <p class="mt-4 text-xl text-gray-500 max-w-2xl mx-auto">
+                        Combinamos innovación técnica con visión de negocio para entregar resultados excepcionales.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Card 1 -->
+                    <div class="reveal delay-100 bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
+                        <div class="text-5xl mb-6 transform group-hover:scale-110 transition-transform duration-300 inline-block">🚀</div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4 group-hover:text-primary transition-colors">Aceleración Digital</h3>
+                        <p class="text-gray-600 leading-relaxed">Estrategias personalizadas para optimizar procesos y maximizar el ROI mediante tecnología punta.</p>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="reveal delay-200 bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
+                        <div class="text-5xl mb-6 transform group-hover:scale-110 transition-transform duration-300 inline-block">💼</div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4 group-hover:text-primary transition-colors">Consultoría SaaS</h3>
+                        <p class="text-gray-600 leading-relaxed">Desarrollo de software escalable y seguro. Arquitectura robusta para empresas en crecimiento.</p>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="reveal delay-300 bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
+                        <div class="text-5xl mb-6 transform group-hover:scale-110 transition-transform duration-300 inline-block">📊</div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4 group-hover:text-primary transition-colors">Big Data & Analytics</h3>
+                        <p class="text-gray-600 leading-relaxed">Transformamos datos en decisiones inteligentes con dashboards interactivos y modelos predictivos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURES SECTION -->
+        <section id="features" class="py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-16 reveal">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                        ¿Por qué elegir <span class="text-primary">NovaTech</span>?
+                    </h2>
+                    <div class="w-20 h-1 bg-primary rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+                    <!-- Feature 1 -->
+                    <div class="reveal delay-100 flex flex-col items-start group">
+                        <div class="p-3 bg-blue-50 text-primary rounded-xl mb-4 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-900 mb-2">Seguridad Integral</h4>
+                        <p class="text-gray-600 text-sm leading-relaxed">Encriptación de grado militar y auditorías continuas para proteger tus activos.</p>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div class="reveal delay-200 flex flex-col items-start group">
+                        <div class="p-3 bg-blue-50 text-primary rounded-xl mb-4 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-900 mb-2">Alto Rendimiento</h4>
+                        <p class="text-gray-600 text-sm leading-relaxed">Arquitecturas optimizadas para velocidad extrema y experiencia de usuario fluida.</p>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div class="reveal delay-300 flex flex-col items-start group">
+                        <div class="p-3 bg-blue-50 text-primary rounded-xl mb-4 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-900 mb-2">Escala Global</h4>
+                        <p class="text-gray-600 text-sm leading-relaxed">Infraestructura distribuida diseñada para soportar crecimiento sin límites.</p>
+                    </div>
+                    <!-- Feature 4 -->
+                    <div class="reveal delay-400 flex flex-col items-start group">
+                        <div class="p-3 bg-blue-50 text-primary rounded-xl mb-4 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-900 mb-2">Diseño Centrado</h4>
+                        <p class="text-gray-600 text-sm leading-relaxed">Interfaces intuitivas que priorizan la usabilidad y la satisfacción del usuario.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="py-24 bg-dark text-white relative overflow-hidden">
+            <!-- Background Orbs -->
+            <div class="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 rounded-full bg-primary opacity-20 blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-indigo-600 opacity-20 blur-3xl"></div>
+
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
+                <div class="reveal text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Hablemos de tu Proyecto</h2>
+                    <p class="text-gray-400 text-lg">
+                        Completa el formulario y nos pondremos en contacto contigo en menos de 24 horas.
+                    </p>
+                </div>
+
+                <div class="reveal delay-200 bg-white/5 backdrop-blur-lg p-8 md:p-12 rounded-2xl border border-white/10 shadow-2xl">
+                    <form id="contactForm" class="space-y-6" novalidate>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Name -->
+                            <div class="form-group">
+                                <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Nombre Completo</label>
+                                <input type="text" id="name" name="name" 
+                                    class="w-full bg-gray-800/50 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                                    placeholder="Juan Pérez">
+                                <span class="error-msg text-red-400 text-sm mt-1 hidden">El nombre es requerido.</span>
+                            </div>
+                            <!-- Email -->
+                            <div class="form-group">
+                                <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Correo Electrónico</label>
+                                <input type="email" id="email" name="email"
+                                    class="w-full bg-gray-800/50 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                                    placeholder="juan@empresa.com">
+                                <span class="error-msg text-red-400 text-sm mt-1 hidden">Email inválido.</span>
+                            </div>
+                        </div>
+                        <!-- Message -->
+                        <div class="form-group">
+                            <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Mensaje</label>
+                            <textarea id="message" name="message" rows="4"
+                                class="w-full bg-gray-800/50 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none"
+                                placeholder="Cuéntanos sobre tu proyecto..."></textarea>
+                            <span class="error-msg text-red-400 text-sm mt-1 hidden">El mensaje no puede estar vacío.</span>
+                        </div>
+
+                        <!-- Submit Btn -->
+                        <button type="submit" id="submitBtn"
+                            class="w-full bg-primary hover:bg-blue-600 text-white font-bold py-4 rounded-lg shadow-lg flex justify-center items-center gap-2 transition-all duration-300 transform hover:-translate-y-1">
+                            <span>Enviar Mensaje</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-50 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Nova<span class="text-primary">Tech</span></h3>
+                    <p class="text-gray-500 max-w-xs leading-relaxed">
+                        Transformando el futuro digital de las empresas con innovación, estrategia y tecnología de punta.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-gray-900 mb-4">Empresa</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#hero" class="text-gray-600 hover:text-primary transition-colors">Inicio</a></li>
+                        <li><a href="#services" class="text-gray-600 hover:text-primary transition-colors">Servicios</a></li>
+                        <li><a href="#contact" class="text-gray-600 hover:text-primary transition-colors">Contacto</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold text-gray-900 mb-4">Redes</h4>
+                    <div class="flex space-x-4">
+                        <!-- Social Icons -->
+                        <a href="#" class="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white hover:border-primary transition-all duration-300">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white hover:border-primary transition-all duration-300">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-200 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+                <p>&copy; 2024 NovaTech Consulting. Todos los derechos reservados.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-gray-900">Privacidad</a>
+                    <a href="#" class="hover:text-gray-900">Términos</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT FUNCIONALIDAD -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- Mobile Menu Toggle ---
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            const iconMenu = document.getElementById('icon-menu');
+            const iconClose = document.getElementById('icon-close');
+            let isMenuOpen = false;
+
+            btn.addEventListener('click', () => {
+                isMenuOpen = !isMenuOpen;
+                if (isMenuOpen) {
+                    menu.classList.remove('scale-y-0', 'opacity-0', 'max-h-0');
+                    menu.classList.add('scale-y-100', 'opacity-100', 'max-h-96');
+                    iconMenu.classList.add('hidden');
+                    iconClose.classList.remove('hidden');
+                } else {
+                    menu.classList.add('scale-y-0', 'opacity-0', 'max-h-0');
+                    menu.classList.remove('scale-y-100', 'opacity-100', 'max-h-96');
+                    iconMenu.classList.remove('hidden');
+                    iconClose.classList.add('hidden');
+                }
+            });
+
+            // Close menu when clicking links
+            document.querySelectorAll('.mobile-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    isMenuOpen = false;
+                    menu.classList.add('scale-y-0', 'opacity-0', 'max-h-0');
+                    menu.classList.remove('scale-y-100', 'opacity-100', 'max-h-96');
+                    iconMenu.classList.remove('hidden');
+                    iconClose.classList.add('hidden');
+                });
+            });
+
+
+            // --- Scroll Reveal Animation ---
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target); // Animates only once
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                observer.observe(el);
+            });
+
+
+            // --- Form Validation & Submission ---
+            const form = document.getElementById('contactForm');
+            const submitBtn = document.getElementById('submitBtn');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                let isValid = true;
+                
+                // Get Fields
+                const name = document.getElementById('name');
+                const email = document.getElementById('email');
+                const message = document.getElementById('message');
+
+                // Helper to show/hide error
+                const showError = (input, show) => {
+                    const errorSpan = input.parentElement.querySelector('.error-msg');
+                    if (show) {
+                        errorSpan.classList.remove('hidden');
+                        input.classList.add('border-red-500');
+                    } else {
+                        errorSpan.classList.add('hidden');
+                        input.classList.remove('border-red-500');
+                    }
+                };
+
+                // Validate Name
+                if (name.value.trim() === '') {
+                    showError(name, true);
+                    isValid = false;
+                } else {
+                    showError(name, false);
+                }
+
+                // Validate Email
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email.value.trim())) {
+                    showError(email, true);
+                    isValid = false;
+                } else {
+                    showError(email, false);
+                }
+
+                // Validate Message
+                if (message.value.trim() === '') {
+                    showError(message, true);
+                    isValid = false;
+                } else {
+                    showError(message, false);
+                }
+
+                if (isValid) {
+                    // Simulate Sending
+                    const originalBtnContent = submitBtn.innerHTML;
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = `
+                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Enviando...
+                    `;
+
+                    setTimeout(() => {
+                        console.log('Formulario enviado:', {
+                            name: name.value,
+                            email: email.value,
+                            message: message.value
+                        });
+                        
+                        alert('¡Mensaje enviado con éxito! Nos pondremos en contacto pronto.');
+                        form.reset();
+                        submitBtn.innerHTML = originalBtnContent;
+                        submitBtn.disabled = false;
+                    }, 1500);
+                }
+            });
+
+            // --- Stats Counter Simulation (Simple) ---
+            // Solo una pequeña demo para el contador de 500+
+            // (Para una implementación completa se requeriría más lógica de IntersectionObserver)
+        });
+    </script>
+</body>
+</html>
